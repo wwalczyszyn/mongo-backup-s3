@@ -66,4 +66,6 @@ docker compose up -d
 ```
 
 # Acknowledgements
-This project is a fork and re-structuring of @eeshugerman's [postgres-backup-s3](https://github.com/eeshugerman/postgres-backup-s3).
+This project is a fork of @eeshugerman's [postgres-backup-s3](https://github.com/eeshugerman/postgres-backup-s3).
+
+The purpose of this fork is to adopt the solution for MongoDB.
