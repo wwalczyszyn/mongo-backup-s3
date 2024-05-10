@@ -1,3 +1,12 @@
+for var in $(env | cut -f1 -d"="); do
+    if [[ $var =~ .*_FILE ]]
+    then
+		file=$(eval "echo \$$var")
+		val=$(cat $file)
+		export ${var%_FILE}=\"$val\"
+    fi
+done
+
 if [ -z "$S3_BUCKET" ]; then
   echo "You need to set the S3_BUCKET environment variable."
   exit 1
