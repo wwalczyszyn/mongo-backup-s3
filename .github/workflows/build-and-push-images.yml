@@ -4,6 +4,10 @@ on:
   push:
     branches: ['master']
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -11,11 +15,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - { postgres: 12, alpine: '3.12' }
-          - { postgres: 13, alpine: '3.14' }
-          - { postgres: 14, alpine: '3.16' }
-          - { postgres: 15, alpine: '3.17' }
-          - { postgres: 16, alpine: '3.19' }
+          - { mongo: 7, alpine: '3.19' }
 
     steps:
       - name: Checkout repository
@@ -30,15 +30,16 @@ jobs:
       - name: Log in to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: ${{ github.repository }}:${{ matrix.postgres }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.mongo }}
           build-args: |
             ALPINE_VERSION=${{ matrix.alpine }}
           platforms: |

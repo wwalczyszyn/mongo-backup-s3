@@ -5,17 +5,19 @@ set -o pipefail
 
 source ./env.sh
 
-echo "Creating backup of $POSTGRES_DATABASE database..."
-pg_dump --format=custom \
-        -h $POSTGRES_HOST \
-        -p $POSTGRES_PORT \
-        -U $POSTGRES_USER \
-        -d $POSTGRES_DATABASE \
-        $PGDUMP_EXTRA_OPTS \
-        > db.dump
+echo "Creating backup of $MONGO_DATABASE database..."
+mongodump \
+        --host $MONGO_HOST \
+        --port $MONGO_PORT \
+        --username $MONGO_USER \
+        --password $MONGO_PASSWORD \
+        --db $MONGO_DATABASE \
+        --archive db.dump \
+        --gzip \
+        $MONGODUMP_EXTRA_OPTS
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
-s3_uri_base="s3://${S3_BUCKET}/${S3_PREFIX}/${POSTGRES_DATABASE}_${timestamp}.dump"
+s3_uri_base="s3://${S3_BUCKET}/${S3_PREFIX}/${MONGO_DATABASE}_${timestamp}.dump"
 
 if [ -n "$PASSPHRASE" ]; then
   echo "Encrypting backup..."
