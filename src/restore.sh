@@ -37,12 +37,12 @@ fi
 
 echo "Restoring from backup..."
 mongorestore \
-        --host $MONGO_HOST \
-        --port $MONGO_PORT \
-        --username $MONGO_USER \
-        --password $MONGO_PASSWORD \
-        --db $MONGO_DATABASE \
-        --archive db.dump \
+        --host=$MONGO_HOST \
+        --port=$MONGO_PORT \
+        --username=$MONGO_USER \
+        --password=$MONGO_PASSWORD \
+        --db=$MONGO_DATABASE \
+        --archive=db.dump \
         --gzip \
         --drop
 rm db.dump

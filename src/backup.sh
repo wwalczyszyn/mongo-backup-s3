@@ -7,12 +7,12 @@ source ./env.sh
 
 echo "Creating backup of $MONGO_DATABASE database..."
 mongodump \
-        --host $MONGO_HOST \
-        --port $MONGO_PORT \
-        --username $MONGO_USER \
-        --password $MONGO_PASSWORD \
-        --db $MONGO_DATABASE \
-        --archive db.dump \
+        --host=$MONGO_HOST \
+        --port=$MONGO_PORT \
+        --username=$MONGO_USER \
+        --password=$MONGO_PASSWORD \
+        --db=$MONGO_DATABASE \
+        --archive=db.dump \
         --gzip \
         $MONGODUMP_EXTRA_OPTS
 
