@@ -27,7 +27,7 @@ ADD src/env.sh env.sh
 ADD src/backup.sh backup.sh
 ADD src/restore.sh restore.sh
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY src/docker-entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 

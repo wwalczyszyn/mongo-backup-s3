@@ -9,14 +9,8 @@ if [ -z "$MONGO_DATABASE" ]; then
 fi
 
 if [ -z "$MONGO_HOST" ]; then
-  # https://docs.docker.com/network/links/#environment-variables
-  if [ -n "$MONGO_PORT_27017_TCP_ADDR" ]; then
-    MONGO_HOST=$MONGO_PORT_27017_TCP_ADDR
-    MONGO_PORT=$MONGO_PORT_27017_TCP_PORT
-  else
     echo "You need to set the MONGO_HOST environment variable."
     exit 1
-  fi
 fi
 
 if [ -z "$MONGO_USER" ]; then
